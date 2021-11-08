@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-12 text-right">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#authorModal">
+          Добавить Автора
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookModal">
+          Добавить Книгу
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="authorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <form action="{{ path('author_create') }}" method="post">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Добавить Автора</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <div class="form-group">
+                    <label for="authorFio" class="col-form-label">ФИО Автора</label>
+                    <input id="authorFio" type="text" class="form-control" autofocus name="fio" required
+                           placeholder="ФИО Автора">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                  <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <form action="{{ path('book_create') }}" method="post">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Добавить Автора</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body text-left">
+                  <div class="form-group">
+                    <label for="authorFio" class="col-form-label">ФИО Автора</label>
+                    <input id="authorFio" type="text" class="form-control" autofocus name="fio" required
+                           placeholder="ФИО Автора">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                  <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+{#      {{ dump(authors) }}#}
+      <div class="col-12">
+        <table id="table" class="table">
+          <caption style="caption-side: top !important;">Список книг</caption>
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Автор</th>
+            <th>Книги</th>
+            <th>Действие</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id="customFuncRow1">
+            <td>1</td>
+            <td data-inlineType="text" data-inlineName="name" data-inlineClass="form-control" data-inlineRequired="true">Test</td>
+            <td data-inlineType="text" data-inlineName="books" data-inlineClass="form-control">
+                <ul>
+{#                {% for book in authors.books %}#}
+{#                    <li>{{ book.title }}</li>#}
+{#                {% endfor %}#}
+                </ul>
+            </td>
+            <td data-inlineType="doneButton">
+              <input type="button" value="Редактировать" data-inlineClass="form-control"
+                     onclick="inlineEdit('customFuncRow1', customFunctionsOptions)"/>
+              <input type="button" value="Удалить" data-inlineClass="form-control" onclick="alert('Remove')"/>
+            </td>
+          </tr>
+          {% if authors|length > 0 %}
+            {% for author in authors %}
+              <tr id="{{ 'tableRow' ~ loop.index }}" data-book="{{ author }}">
+                <td>{{ loop.index }}</td>
+                <td data-inlineType="text" data-inlineName="title">{{ author.name }}</td>
+                <td data-inlineType="doneButton">
+                  <input type="button" value="Редактировать"
+                         onclick="inlineEdit('customFuncRow1', customFunctionsOptions, '/author/update'.{{ author.id }})"/>
+                  <input type="button" value="Удалить" onclick="alert('Remove')"/>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="7" align="center">Пусто</td>
+            </tr>
+          {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

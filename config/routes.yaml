@@ -1,3 +1,35 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /
+    controller: App\Controller\MainController::indexPage
+
+get_all_authors:
+    path: /author/get
+    controller: App\Controller\MainController::getAllAuthors
+
+author_create:
+    path: /author/create
+    controller: App\Controller\AuthorController::createAuthor
+
+author_update:
+    path: /author/update/{id}
+    controller: App\Controller\AuthorController::updateAuthor
+
+author_delete:
+    path: /author/delete/{id}
+    controller: App\Controller\AuthorController::deleteAuthor
+
+get_all_books:
+    path: /book/get
+    controller: App\Controller\MainController::getAllBooks
+
+book_create:
+    path: /book/create
+    controller: App\Controller\BookController::createBook
+
+book_update:
+    path: /book/update/{id}
+    controller: App\Controller\BookController::updateBook
+
+book_delete:
+    path: /book/delete/{id}
+    controller: App\Controller\BookController::deleteBook

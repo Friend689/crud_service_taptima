@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#authorModal">
+                    Добавить Автора
+                </button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookModal">
+                    Добавить Книгу
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="authorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form action="{{ path('author_create') }}" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Добавить Автора</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-left">
+                                    <div class="form-group">
+                                        <label for="authorFio" class="col-form-label">ФИО Автора</label>
+                                        <input id="authorFio" type="text" class="form-control" autofocus name="fio" required
+                                               placeholder="ФИО Автора">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    <button type="submit" class="btn btn-primary">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form action="{{ path('book_create') }}" method="post">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Добавить Книгу</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-left">
+                                    <div class="form-group">
+                                        <label for="bookTitle" class="col-form-label">Заголовок книги</label>
+                                        <input id="bookTitle" type="text" class="form-control" name="title" required
+                                               placeholder="Заголовок книги">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bookCover" class="col-form-label">Обложка книги</label>
+                                        <input id="bookCover" type="file" class="form-control" name="cover" required
+                                               placeholder="Обложка книги">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bookAuthor" class="col-form-label">Автор книги</label>
+                                        <input id="bookAuthor" type="text" class="form-control" name="author" required
+                                               placeholder="Автор книги">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bookYear" class="col-form-label">Год издания книги</label>
+                                        <input id="bookYear" type="text" class="form-control" name="year" required
+                                               placeholder="Год издания книги">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bookDescription" class="col-form-label">Описание книги</label>
+                                        <input id="bookDescription" type="text" class="form-control" name="description" required
+                                               placeholder="Описание книги">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                                    <button type="submit" class="btn btn-primary">Добавить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <table id="table" class="table tablemanager">
+                    {#          <caption style="caption-side: top !important;">Список книг</caption>#}
+                    <thead>
+                    <tr>
+                        <th class="disableSort disableFilterBy">№</th>
+                        <th class="disableSort disableFilterBy">Обложка</th>
+                        <th>Наименование</th>
+                        <th>Автор</th>
+                        <th>Год публикации</th>
+                        <th>Описание</th>
+                        <th class="disableSort disableFilterBy">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr id="customFuncRow1">
+                        <td>Test</td>
+                        <td data-inlineType="img" data-inlineName="cover" data-inlineClass="form-control"><img src="" alt=""></td>
+                        <td data-inlineType="text" data-inlineName="title" data-inlineClass="form-control"
+                            data-inlineRequired="true">Test
+                        </td>
+                        <td data-inlineType="select" data-inlineName="author" data-inlineClass="form-control"
+                            data-inlineOptionsTitle='["FF","CC","99","66","33","00"]'
+                            data-inlineOptionsValue='["FF","CC","99","66","33","00"]'>Test
+                        </td>
+                        <td data-inlineType="text" data-inlineName="year" data-inlineClass="form-control">Test</td>
+                        <td data-inlineType="textarea" data-inlineName="description" data-inlineClass="form-control">Test</td>
+                        <td data-inlineType="doneButton">
+                            <input type="button" value="Редактировать" data-inlineClass="form-control"
+                                   onclick="inlineEdit('customFuncRow1', customFunctionsOptions)"/>
+                            <input type="button" value="Удалить" data-inlineClass="form-control" onclick="alert('Remove')"/>
+                        </td>
+                    </tr>
+                    <tr id="customFuncRow2">
+                        <td>Test</td>
+                        <td data-inlineType="img" data-inlineName="cover" data-inlineClass="form-control"><img src="" alt=""></td>
+                        <td data-inlineType="text" data-inlineName="title" data-inlineClass="form-control"
+                            data-inlineRequired="true">Test12e
+                        </td>
+                        <td data-inlineType="select" data-inlineName="author" data-inlineClass="form-control"
+                            data-inlineOptionsTitle='["FF","CC","99","66","33","00"]'
+                            data-inlineOptionsValue='["FF","CC","99","66","33","00"]'>Test
+                        </td>
+                        <td data-inlineType="text" data-inlineName="year" data-inlineClass="form-control">Test</td>
+                        <td data-inlineType="textarea" data-inlineName="description" data-inlineClass="form-control">Test</td>
+                        <td data-inlineType="doneButton">
+                            <input type="button" value="Редактировать" data-inlineClass="form-control"
+                                   onclick="inlineEdit('customFuncRow2', customFunctionsOptions)"/>
+                            <input type="button" value="Удалить" data-inlineClass="form-control" onclick="alert('Remove')"/>
+                        </td>
+                    </tr>
+                    {% if books|length > 0 %}
+                        {% for book in books %}
+                            <tr id="{{ 'tableRow' ~ loop.index }}" data-book="{{ book }}">
+                                <td>{{ loop.index }}</td>
+                                <td data-inlineType="file" data-inlineName="cover"><img src="{{ book.cover }}" alt=""></td>
+                                <td data-inlineType="text" data-inlineName="title">{{ book.title }}</td>
+                                <td data-inlineType="select"
+                                    data-inlineName="author">{{ book.author.surname }} {{ book.author.name }} {{ book.author.patronymic }}</td>
+                                <td data-inlineType="text" data-inlineName="year">{{ book.year }}</td>
+                                <td data-inlineType="textarea" data-inlineName="description">{{ book.description }}</td>
+                                <td data-inlineType="doneButton">
+                                    <input type="button" value="Редактировать"
+                                           onclick="inlineEdit('customFuncRow1', customFunctionsOptions, '/book/')"/>
+                                    <input type="button" value="Удалить" onclick="alert('Remove')"/>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" align="center">Пусто</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
